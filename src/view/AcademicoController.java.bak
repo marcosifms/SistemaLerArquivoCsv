@@ -13,18 +13,17 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Marcos
  */
-public class SistecController extends AbstractTableModel {
+public class AcademicoController extends AbstractTableModel {
 
     private String[] cabecalho;
     private List dados;
-    private String separador = ";";
+    private String separador = ",";
 
-    public SistecController() {
+    public AcademicoController() {
         cabecalho = new String[0];
         dados = new ArrayList();
     }
 
-    
     public void setCabecalho(String cabecalho) {
         this.cabecalho = cabecalho.split(separador);
         this.fireTableStructureChanged();
@@ -38,13 +37,9 @@ public class SistecController extends AbstractTableModel {
         this.dados = dados;
         this.fireTableDataChanged();
     }
-    public List getDados() {
-        return this.dados;
-    }
 
     public void setSeparador(String separador) {
         this.separador = separador;
-//        this.fireTableDataChanged();
     }
 
     @Override
@@ -67,18 +62,14 @@ public class SistecController extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        String linha = (String) this.dados.get(rowIndex);
+        String linha = (String) dados.get(rowIndex);
         String[] campos = linha.split(separador);
         return campos[columnIndex].replaceAll("\"", "");
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        if (this.cabecalho == null) {
-            return "";
-        } else {
-            return this.cabecalho[columnIndex].replaceAll("\"", "");
-        }
+        return this.cabecalho[columnIndex].replaceAll("\"", "");
     }
 
 }

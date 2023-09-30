@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -18,8 +19,14 @@ public class AcademicoController extends AbstractTableModel {
     private List dados;
     private String separador = ",";
 
+    public AcademicoController() {
+        cabecalho = new String[0];
+        dados = new ArrayList();
+    }
+
     public void setCabecalho(String cabecalho) {
         this.cabecalho = cabecalho.split(separador);
+        this.fireTableStructureChanged();
     }
 
     public String[] getCabecalho() {
@@ -31,8 +38,13 @@ public class AcademicoController extends AbstractTableModel {
         this.fireTableDataChanged();
     }
 
+    List getDados() {
+        return this.dados;
+    }
+
     public void setSeparador(String separador) {
         this.separador = separador;
+//        this.fireTableDataChanged();
     }
 
     @Override
@@ -55,14 +67,18 @@ public class AcademicoController extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        String linha = (String) dados.get(rowIndex);
+        String linha = (String) this.dados.get(rowIndex);
         String[] campos = linha.split(separador);
         return campos[columnIndex].replaceAll("\"", "");
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        return this.cabecalho[columnIndex].replaceAll("\"", "");
+        if (this.cabecalho == null) {
+            return "";
+        } else {
+            return this.cabecalho[columnIndex].replaceAll("\"", "");
+        }
     }
 
 }

@@ -38,19 +38,16 @@ public class SistecController extends AbstractTableModel {
         this.dados = dados;
         this.fireTableDataChanged();
     }
-    public List getDados() {
-        return this.dados;
-    }
 
     public void setSeparador(String separador) {
         this.separador = separador;
-//        this.fireTableDataChanged();
+        this.fireTableDataChanged();
     }
 
     @Override
     public int getRowCount() {
         if (this.dados == null) {
-            return 0;
+            return 2;
         } else {
             return this.dados.size();
         }
@@ -59,7 +56,7 @@ public class SistecController extends AbstractTableModel {
     @Override
     public int getColumnCount() {
         if (this.cabecalho == null) {
-            return 0;
+            return 2;
         } else {
             return this.cabecalho.length;
         }

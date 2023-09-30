@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
 /**
@@ -48,10 +47,10 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         jPanel4.setBorder(borderSistec);
         Border borderAcademico = BorderFactory.createTitledBorder("Academico");
         jPanel5.setBorder(borderAcademico);
-        
+
         sistecController = new SistecController();
         jTblSistec.setModel(sistecController);
-        
+
         academicoController = new AcademicoController();
         jTblAcademico.setModel(academicoController);
 
@@ -80,7 +79,7 @@ public class JFrmProcessamento extends javax.swing.JFrame {
                 listaRegistros.add(linha);
             }
             sistecController.setDados(listaRegistros);
-            
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(JDlgArquivos.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -94,8 +93,10 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         sistecController.setSeparador((String) jCboSeparadorSistec.getSelectedItem());
         lerArquivoSistec(jTxtArquivoSistec.getText());
         lista1.clear();
+        jCboStatusSistec.removeAllItems();
         for (int i = 0; i < sistecController.getCabecalho().length; i++) {
             lista1.add(i, sistecController.getCabecalho()[i]);
+            jCboStatusSistec.addItem(sistecController.getCabecalho()[i]);
         }
         jList1.setSelectedIndex(0);
     }
@@ -124,8 +125,10 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         academicoController.setSeparador((String) jCboSeparadorAcademico.getSelectedItem());
         lerArquivoAcademico(jTxtArquivoAcademico.getText());
         lista3.clear();
+        jCboStatusAcademico.removeAllItems();
         for (int i = 0; i < academicoController.getCabecalho().length; i++) {
             lista3.add(i, academicoController.getCabecalho()[i]);
+            jCboStatusAcademico.addItem(academicoController.getCabecalho()[i]);
         }
         jList3.setSelectedIndex(0);
     }
@@ -149,12 +152,16 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         jBtnArquivoSistec = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jCboSeparadorSistec = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jCboStatusSistec = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTxtArquivoAcademico = new javax.swing.JTextField();
         jBtnArquivoAcademico = new javax.swing.JButton();
         jCboSeparadorAcademico = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jCboStatusAcademico = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -172,7 +179,9 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         jTblAcademico = new javax.swing.JTable();
         jToolBar1 = new javax.swing.JToolBar();
         jPanel3 = new javax.swing.JPanel();
-        jBtnArqCsvProximo = new javax.swing.JButton();
+        jChbSalvar = new javax.swing.JCheckBox();
+        jBtnProcessar = new javax.swing.JButton();
+        jBtnLimpar = new javax.swing.JButton();
 
         jScrollPane2.setViewportView(jEditorPane1);
 
@@ -208,6 +217,8 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         jCboSeparadorSistec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", ";", "," }));
         jCboSeparadorSistec.setSelectedIndex(1);
 
+        jLabel6.setText("Campo de Status");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -223,6 +234,10 @@ public class JFrmProcessamento extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCboSeparadorSistec, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCboStatusSistec, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -236,7 +251,9 @@ public class JFrmProcessamento extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jCboSeparadorSistec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jCboSeparadorSistec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jCboStatusSistec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -255,6 +272,8 @@ public class JFrmProcessamento extends javax.swing.JFrame {
 
         jLabel4.setText("Separador");
 
+        jLabel7.setText("Campo de Status");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -271,6 +290,10 @@ public class JFrmProcessamento extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCboSeparadorAcademico, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCboStatusAcademico, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -284,7 +307,10 @@ public class JFrmProcessamento extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jCboSeparadorAcademico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCboSeparadorAcademico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(jCboStatusAcademico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -418,13 +444,24 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        jBtnArqCsvProximo.setText("Próximo");
-        jBtnArqCsvProximo.addActionListener(new java.awt.event.ActionListener() {
+        jChbSalvar.setText("Salvar Informações");
+        jPanel3.add(jChbSalvar);
+
+        jBtnProcessar.setText("Processar");
+        jBtnProcessar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnArqCsvProximoActionPerformed(evt);
+                jBtnProcessarActionPerformed(evt);
             }
         });
-        jPanel3.add(jBtnArqCsvProximo);
+        jPanel3.add(jBtnProcessar);
+
+        jBtnLimpar.setText("Limpar");
+        jBtnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnLimparActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jBtnLimpar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -468,10 +505,20 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBtnArquivoSistecActionPerformed
 
-    private void jBtnArqCsvProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnArqCsvProximoActionPerformed
+    private void jBtnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLimparActionPerformed
         // TODO add your handling code here:
-        jTabbedPane1.setSelectedIndex(jTabbedPane1.getSelectedIndex() + 1);
-    }//GEN-LAST:event_jBtnArqCsvProximoActionPerformed
+        //jTabbedPane1.setSelectedIndex(jTabbedPane1.getSelectedIndex() + 1);
+        jTxtArquivoAcademico.setText("");
+        jTxtArquivoSistec.setText("");
+        jCboStatusSistec.setSelectedIndex(-1);
+        jCboStatusAcademico.setSelectedIndex(-1);
+        sistecController.setDados(null);
+        academicoController.setDados(null);
+        lista1.removeAllElements();
+        lista2.removeAllElements();
+        lista3.removeAllElements();
+
+    }//GEN-LAST:event_jBtnLimparActionPerformed
 
     private void jBtnArquivoAcademicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnArquivoAcademicoActionPerformed
         // TODO add your handling code here:        
@@ -501,10 +548,29 @@ public class JFrmProcessamento extends javax.swing.JFrame {
                 br = new BufferedReader(new FileReader(dirArq));
                 String linha = br.readLine();
                 jTxtArquivoSistec.setText(linha);
-                processarArquivoSistec();
                 linha = br.readLine();
-                jTxtArquivoAcademico.setText(linha);
-                processarArquivoAcademico();
+                if (linha != null) {
+                    jCboSeparadorSistec.setSelectedIndex(Integer.parseInt(linha));
+                    processarArquivoSistec();
+                }
+                linha = br.readLine();
+                if (linha != null) {
+                    jCboStatusSistec.setSelectedIndex(Integer.parseInt(linha));
+                }
+                //lendo e processamento ACADEMICO
+                linha = br.readLine();
+                if (linha != null) {
+                    jTxtArquivoAcademico.setText(linha);
+                }
+                linha = br.readLine();
+                if (linha != null) {
+                    jCboSeparadorAcademico.setSelectedIndex(Integer.parseInt(linha));
+                    processarArquivoAcademico();
+                }
+                linha = br.readLine();
+                if (linha != null) {
+                    jCboStatusAcademico.setSelectedIndex(Integer.parseInt(linha));
+                }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(JDlgArquivos.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -518,24 +584,52 @@ public class JFrmProcessamento extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:        
-        String arquivo = diretorioAtual() + "\\dados.cfg";
-        System.out.println(arquivo);
-        try {
-            PrintWriter pw;
-            pw = new PrintWriter(new BufferedWriter(new FileWriter(arquivo, true)));
-            if (jTxtArquivoSistec.getText().trim().isEmpty()) {
-                pw.println("");
-            } else {
-                pw.println(jTxtArquivoSistec.getText());
+        if (jChbSalvar.isSelected()) {
+            String arquivo = diretorioAtual() + "\\dados.cfg";
+            System.out.println(arquivo);
+            try {
+                PrintWriter pw;
+                //pw = new PrintWriter(new BufferedWriter(new FileWriter(arquivo, true)));
+                //cria arquivo e sobrepoe se existir
+                pw = new PrintWriter(new BufferedWriter(new FileWriter(arquivo)));
+                //SISTEC
+                if (jTxtArquivoSistec.getText().trim().isEmpty()) {
+                    pw.println("");
+                } else {
+                    pw.println(jTxtArquivoSistec.getText());
+                }
+
+                if (jCboSeparadorSistec.getSelectedIndex() == -1 & ((String) jCboSeparadorSistec.getSelectedItem()).trim().isEmpty()) {
+                    pw.println("");
+                } else {
+                    pw.println(jCboSeparadorSistec.getSelectedIndex());
+                }
+
+                if (jCboStatusSistec.getSelectedIndex() == -1 & ((String) jCboStatusSistec.getSelectedItem()).trim().isEmpty()) {
+                    pw.println("");
+                } else {
+                    pw.println(jCboStatusSistec.getSelectedIndex());
+                }
+                //ACADEMICO
+                if (jTxtArquivoAcademico.getText().trim().isEmpty()) {
+                    pw.println("");
+                } else {
+                    pw.println(jTxtArquivoAcademico.getText());
+                }
+                if (jCboSeparadorAcademico.getSelectedIndex() == -1 & ((String) jCboSeparadorAcademico.getSelectedItem()).trim().isEmpty()) {
+                    pw.println("");
+                } else {
+                    pw.println(jCboSeparadorAcademico.getSelectedIndex());
+                }
+                if (jCboStatusAcademico.getSelectedIndex() == -1 & ((String) jCboStatusAcademico.getSelectedItem()).trim().isEmpty()) {
+                    pw.println("");
+                } else {
+                    pw.println(jCboStatusAcademico.getSelectedIndex());
+                }
+                pw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(JFrmProcessamento.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (jTxtArquivoAcademico.getText().trim().isEmpty()) {
-                pw.println("");
-            } else {
-                pw.println(jTxtArquivoAcademico.getText());
-            }
-            pw.close();
-        } catch (IOException ex) {
-            Logger.getLogger(JFrmProcessamento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowClosing
 
@@ -553,14 +647,64 @@ public class JFrmProcessamento extends javax.swing.JFrame {
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         // TODO add your handling code here:
-        if (jTabbedPane1.getSelectedIndex()==1) {
+        if (jTabbedPane1.getSelectedIndex() == 1) {
             //JOptionPane.showMessageDialog(null, "sistec");
         }
-        if (jTabbedPane1.getSelectedIndex()==2) {
+        if (jTabbedPane1.getSelectedIndex() == 2) {
             //JOptionPane.showMessageDialog(null, "academico");
         }
-        
+
     }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void jBtnProcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnProcessarActionPerformed
+        // TODO add your handling code here:
+        List dadosSistec = sistecController.getDados();
+        List dadosAcademico = academicoController.getDados();
+        //pegar o campo do list e guardar o indice do sistec e academico
+        String[] camposBusca = ((String) lista2.get(0)).split("=>");
+        //procura indice do campo que será buscado nos dados do SISTEC
+        int indSistec = 0;
+        for (int i = 0; i < jCboStatusSistec.getItemCount(); i++) {
+            if (jCboStatusSistec.getItemAt(i).equals(camposBusca[0])) {
+                indSistec = i;
+                break;
+            }
+        }
+        //procura indice do campo que será buscado nos dados do ACADEMICO
+        int indAcademico = 0;
+        for (int i = 0; i < jCboStatusAcademico.getItemCount(); i++) {
+            if (jCboStatusAcademico.getItemAt(i).equals(camposBusca[1])) {
+                indAcademico = i;
+                break;
+            }
+        }
+        String linha1, linha2, valorSistec, valorAcademico;
+        String[] camposSistec, camposAcademico;
+        for (int i = 0; i < dadosSistec.size(); i++) {
+            linha1 = (String) dadosSistec.get(i);
+            camposSistec = linha1.split((String) jCboSeparadorSistec.getSelectedItem());
+            valorSistec = camposSistec[indSistec];
+            //System.out.println(valorSistec);
+            //procura campo do sistec no academico
+            boolean achou = false;
+            for (int j = 0; j < dadosAcademico.size(); j++) {
+                linha2 = (String) dadosAcademico.get(j);
+                camposAcademico = linha2.split((String) jCboSeparadorAcademico.getSelectedItem());
+                if (valorSistec.equals(camposAcademico[indAcademico])) {
+                    achou = true;
+                }
+            }
+            if (achou) {
+                System.out.println("achou =" + valorSistec);//+ " - " + camposAcademico[indAcademico]);
+            } else {
+                System.out.println("NAO achou =" + valorSistec);// + " - " + camposAcademico[indAcademico]);
+            }
+        }
+        //System.out.println("indice"+indSistec);
+        //usar esse indice para acessar o valor no List dados no academico
+        //procurar o dado do sistec no academico
+        //se nao existir guardar a linha
+    }//GEN-LAST:event_jBtnProcessarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -599,18 +743,24 @@ public class JFrmProcessamento extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnAdicionar;
-    private javax.swing.JButton jBtnArqCsvProximo;
     private javax.swing.JButton jBtnArquivoAcademico;
     private javax.swing.JButton jBtnArquivoSistec;
+    private javax.swing.JButton jBtnLimpar;
+    private javax.swing.JButton jBtnProcessar;
     private javax.swing.JButton jBtnRemover;
     private javax.swing.JComboBox<String> jCboSeparadorAcademico;
     private javax.swing.JComboBox<String> jCboSeparadorSistec;
+    private javax.swing.JComboBox<String> jCboStatusAcademico;
+    private javax.swing.JComboBox<String> jCboStatusSistec;
+    private javax.swing.JCheckBox jChbSalvar;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;
     private javax.swing.JList<String> jList3;
