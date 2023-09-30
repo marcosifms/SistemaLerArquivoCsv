@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
 /**
@@ -47,8 +48,10 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         jPanel4.setBorder(borderSistec);
         Border borderAcademico = BorderFactory.createTitledBorder("Academico");
         jPanel5.setBorder(borderAcademico);
+        
         sistecController = new SistecController();
         jTblSistec.setModel(sistecController);
+        
         academicoController = new AcademicoController();
         jTblAcademico.setModel(academicoController);
 
@@ -77,6 +80,7 @@ public class JFrmProcessamento extends javax.swing.JFrame {
                 listaRegistros.add(linha);
             }
             sistecController.setDados(listaRegistros);
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(JDlgArquivos.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -93,7 +97,7 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         for (int i = 0; i < sistecController.getCabecalho().length; i++) {
             lista1.add(i, sistecController.getCabecalho()[i]);
         }
-
+        jList1.setSelectedIndex(0);
     }
 
     public void lerArquivoAcademico(String arquivo) {
@@ -123,7 +127,7 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         for (int i = 0; i < academicoController.getCabecalho().length; i++) {
             lista3.add(i, academicoController.getCabecalho()[i]);
         }
-
+        jList3.setSelectedIndex(0);
     }
 
     /**
@@ -158,10 +162,10 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jList3 = new javax.swing.JList<>();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jBtnAdicionar = new javax.swing.JButton();
+        jBtnRemover = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane7 = new javax.swing.JScrollPane();
         jTblSistec = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -179,6 +183,12 @@ public class JFrmProcessamento extends javax.swing.JFrame {
             }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
+            }
+        });
+
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
             }
         });
 
@@ -226,8 +236,7 @@ public class JFrmProcessamento extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jCboSeparadorSistec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 28, Short.MAX_VALUE))
+                    .addComponent(jCboSeparadorSistec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -276,7 +285,7 @@ public class JFrmProcessamento extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jCboSeparadorAcademico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jScrollPane3.setViewportView(jList1);
@@ -287,14 +296,19 @@ public class JFrmProcessamento extends javax.swing.JFrame {
 
         jLabel5.setText("Campos a serem comparados");
 
-        jButton1.setText("Adicionar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtnAdicionar.setText("Adicionar");
+        jBtnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtnAdicionarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Remover");
+        jBtnRemover.setText("Remover");
+        jBtnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRemoverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -313,13 +327,13 @@ public class JFrmProcessamento extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton1)
+                                        .addComponent(jBtnAdicionar)
                                         .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton2)
+                                    .addComponent(jBtnRemover)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
@@ -331,21 +345,18 @@ public class JFrmProcessamento extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(90, 90, 90)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
+                            .addComponent(jBtnAdicionar)
+                            .addComponent(jBtnRemover))
                         .addGap(21, 21, 21)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane5)))
         );
 
         jTabbedPane1.addTab("Arquivos CSV", jPanel1);
@@ -361,19 +372,17 @@ public class JFrmProcessamento extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTblSistec);
+        jScrollPane7.setViewportView(jTblSistec);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE))
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Sistec", jPanel2);
@@ -441,6 +450,7 @@ public class JFrmProcessamento extends javax.swing.JFrame {
     private void jBtnArquivoSistecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnArquivoSistecActionPerformed
         // TODO add your handling code here:
         final JFileChooser fc;
+        //verifica se tem alguma informacao no JTextField
         if (jTxtArquivoSistec.getText().trim().isEmpty()) {
             fc = new JFileChooser();
         } else {
@@ -448,10 +458,13 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         }
         int returnVal = fc.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
+            //pega o arquivo selecionado 
             File file = fc.getSelectedFile();
+            //seta a informação do arquivo selecionado
             jTxtArquivoSistec.setText(file.getPath());
             //
             processarArquivoSistec();
+            jTblSistec.setModel(sistecController);
         }
     }//GEN-LAST:event_jBtnArquivoSistecActionPerformed
 
@@ -526,11 +539,28 @@ public class JFrmProcessamento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBtnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAdicionarActionPerformed
         // TODO add your handling code here:
-
         lista2.addElement(lista1.get(jList1.getSelectedIndex()) + "=>" + lista3.get(jList3.getSelectedIndex()));
-    }//GEN-LAST:event_jButton1ActionPerformed
+        lista1.remove(jList1.getSelectedIndex());
+        lista3.remove(jList3.getSelectedIndex());
+    }//GEN-LAST:event_jBtnAdicionarActionPerformed
+
+    private void jBtnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRemoverActionPerformed
+        // TODO add your handling code here:
+        lista2.remove(jList2.getSelectedIndex());
+    }//GEN-LAST:event_jBtnRemoverActionPerformed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        // TODO add your handling code here:
+        if (jTabbedPane1.getSelectedIndex()==1) {
+            //JOptionPane.showMessageDialog(null, "sistec");
+        }
+        if (jTabbedPane1.getSelectedIndex()==2) {
+            //JOptionPane.showMessageDialog(null, "academico");
+        }
+        
+    }//GEN-LAST:event_jTabbedPane1StateChanged
 
     /**
      * @param args the command line arguments
@@ -568,11 +598,11 @@ public class JFrmProcessamento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnAdicionar;
     private javax.swing.JButton jBtnArqCsvProximo;
     private javax.swing.JButton jBtnArquivoAcademico;
     private javax.swing.JButton jBtnArquivoSistec;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jBtnRemover;
     private javax.swing.JComboBox<String> jCboSeparadorAcademico;
     private javax.swing.JComboBox<String> jCboSeparadorSistec;
     private javax.swing.JEditorPane jEditorPane1;
@@ -590,12 +620,12 @@ public class JFrmProcessamento extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTblAcademico;
     private javax.swing.JTable jTblSistec;

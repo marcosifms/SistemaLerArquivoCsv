@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -18,8 +19,15 @@ public class SistecController extends AbstractTableModel {
     private List dados;
     private String separador = ";";
 
+    public SistecController() {
+        cabecalho = new String[0];
+        dados = new ArrayList();
+    }
+
+    
     public void setCabecalho(String cabecalho) {
         this.cabecalho = cabecalho.split(separador);
+        this.fireTableStructureChanged();
     }
 
     public String[] getCabecalho() {
@@ -28,16 +36,18 @@ public class SistecController extends AbstractTableModel {
 
     public void setDados(List dados) {
         this.dados = dados;
+        this.fireTableDataChanged();
     }
 
     public void setSeparador(String separador) {
         this.separador = separador;
+        this.fireTableDataChanged();
     }
 
     @Override
     public int getRowCount() {
         if (this.dados == null) {
-            return 0;
+            return 2;
         } else {
             return this.dados.size();
         }
@@ -46,7 +56,7 @@ public class SistecController extends AbstractTableModel {
     @Override
     public int getColumnCount() {
         if (this.cabecalho == null) {
-            return 0;
+            return 2;
         } else {
             return this.cabecalho.length;
         }
@@ -54,14 +64,18 @@ public class SistecController extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        String linha = (String) dados.get(rowIndex);
+        String linha = (String) this.dados.get(rowIndex);
         String[] campos = linha.split(separador);
         return campos[columnIndex].replaceAll("\"", "");
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        return this.cabecalho[columnIndex].replaceAll("\"", "");
+        if (this.cabecalho == null) {
+            return "";
+        } else {
+            return this.cabecalho[columnIndex].replaceAll("\"", "");
+        }
     }
 
 }

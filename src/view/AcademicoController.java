@@ -28,6 +28,7 @@ public class AcademicoController extends AbstractTableModel {
 
     public void setDados(List dados) {
         this.dados = dados;
+        this.fireTableDataChanged();
     }
 
     public void setSeparador(String separador) {
